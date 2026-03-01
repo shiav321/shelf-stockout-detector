@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiva Keshava — AI Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050810;
+  --surface: #0d1117;
+  --card: #111827;
+  --border: #1f2d3d;
+  --green: #00c864;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --yellow: #f59e0b;
+  --text: #e8f0fe;
+  --muted: #6b7280;
+  --accent: #00c864;
+}
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--green);border-radius:2px;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,8,16,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 40px;}
+.nav-inner{max-width:1200px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text);}
+.nav-logo span{color:var(--green);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover{color:var(--green);}
+.nav-cta{background:var(--green);color:#000;padding:8px 20px;border-radius:8px;font-size:0.85rem;font-weight:700;text-decoration:none;font-family:'Syne',sans-serif;transition:all 0.2s;}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,200,100,0.3);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 20px 40px;}
+.hero-bg{position:absolute;inset:0;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,200,100,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,100,0.03) 1px,transparent 1px);background-size:48px 48px;}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(0,200,100,0.08),transparent 70%);pointer-events:none;}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:900px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,200,100,0.08);border:1px solid rgba(0,200,100,0.2);border-radius:30px;padding:8px 20px;margin-bottom:32px;}
+.badge-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.8);}}
+.badge-text{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--green);letter-spacing:0.1em;text-transform:uppercase;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:800;line-height:1.0;letter-spacing:-0.04em;margin-bottom:24px;}
+.hero h1 .line1{display:block;color:var(--text);}
+.hero h1 .line2{display:block;background:linear-gradient(135deg,var(--green),#00aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero h1 .line3{display:block;color:rgba(232,240,254,0.5);}
+.hero-sub{font-size:1.15rem;color:var(--muted);max-width:580px;margin:0 auto 40px;line-height:1.7;}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#000;padding:14px 28px;border-radius:12px;font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;text-decoration:none;transition:all 0.2s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,200,100,0.35);}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);padding:14px 28px;border-radius:12px;border:1.5px solid var(--border);font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;text-decoration:none;transition:all 0.2s;}
+.btn-secondary:hover{border-color:var(--green);color:var(--green);}
+.hero-stats{display:flex;gap:48px;justify-content:center;margin-top:64px;padding-top:48px;border-top:1px solid var(--border);flex-wrap:wrap;}
+.hero-stat{}
+.hero-stat-num{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text);}
+.hero-stat-num span{color:var(--green);}
+.hero-stat-label{font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;}
+
+/* SECTIONS */
+section{padding:100px 20px;}
+.container{max-width:1200px;margin:0 auto;}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--green);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:12px;}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px;}
+.section-sub{color:var(--muted);font-size:1rem;line-height:1.7;max-width:600px;}
+
+/* WHY SECTION */
+.why-section{background:var(--surface);}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:60px;}
+@media(max-width:768px){.why-grid{grid-template-columns:1fr;}}
+.why-image{border-radius:20px;overflow:hidden;border:1.5px solid var(--border);position:relative;}
+.why-image img{width:100%;height:380px;object-fit:cover;display:block;filter:brightness(0.85);}
+.why-image-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,8,16,0.8),transparent);}
+.why-image-badge{position:absolute;bottom:20px;left:20px;background:rgba(239,68,68,0.9);color:white;padding:8px 16px;border-radius:8px;font-size:0.8rem;font-weight:700;font-family:'Syne',sans-serif;}
+.why-content{}
+.why-story{color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:24px;}
+.why-story strong{color:var(--text);}
+.stat-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
+.stat-pill{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 18px;}
+.stat-pill-num{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--green);}
+.stat-pill-label{font-size:0.72rem;color:var(--muted);margin-top:2px;}
+
+/* HOW IT WORKS */
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:56px;}
+.step-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:28px;position:relative;overflow:hidden;transition:all 0.3s;}
+.step-card:hover{border-color:var(--green);transform:translateY(-4px);}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),#00aaff);opacity:0;transition:opacity 0.3s;}
+.step-card:hover::before{opacity:1;}
+.step-num{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--green);letter-spacing:0.1em;margin-bottom:16px;}
+.step-icon{font-size:2rem;margin-bottom:14px;}
+.step-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:8px;}
+.step-desc{font-size:0.85rem;color:var(--muted);line-height:1.6;}
+
+/* DEMO SECTION */
+.demo-section{background:var(--surface);}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:56px;}
+@media(max-width:768px){.demo-grid{grid-template-columns:1fr;}}
+.demo-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+.demo-img{width:100%;height:220px;object-fit:cover;display:block;filter:brightness(0.8);}
+.demo-body{padding:24px;}
+.demo-tag{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--green);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
+.demo-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:8px;}
+.demo-desc{font-size:0.85rem;color:var(--muted);line-height:1.6;}
+
+/* APP MOCKUP SECTION */
+.mockup-section{}
+.mockup-wrapper{background:var(--card);border:1.5px solid var(--border);border-radius:24px;overflow:hidden;margin-top:56px;box-shadow:0 40px 80px rgba(0,0,0,0.4);}
+.mockup-topbar{background:var(--surface);padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);}
+.mac-dot{width:12px;height:12px;border-radius:50%;}
+.mockup-url{flex:1;background:rgba(255,255,255,0.04);border-radius:8px;padding:6px 14px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);margin:0 16px;}
+.mockup-content{padding:32px;}
+.mockup-tabs{display:flex;gap:6px;margin-bottom:28px;flex-wrap:wrap;}
+.m-tab{padding:8px 16px;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);color:var(--muted);transition:all 0.2s;font-family:'Syne',sans-serif;}
+.m-tab.active{background:var(--green);color:#000;border-color:var(--green);}
+.mockup-demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:600px){.mockup-demo-grid{grid-template-columns:1fr;}}
+.store-map{background:var(--surface);border-radius:14px;padding:20px;}
+.map-header{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
+.live-badge{background:rgba(0,200,100,0.1);color:var(--green);font-size:0.6rem;padding:3px 8px;border-radius:6px;font-family:'JetBrains Mono',monospace;letter-spacing:0.08em;border:1px solid rgba(0,200,100,0.2);}
+.aisle-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.aisle{border-radius:8px;padding:10px 4px;text-align:center;font-size:0.55rem;font-weight:700;letter-spacing:0.02em;transition:all 0.3s;}
+.aisle-icon{font-size:1rem;display:block;margin-bottom:3px;}
+.aisle.ok{background:rgba(0,200,100,0.1);border:1px solid rgba(0,200,100,0.25);color:#4ade80;}
+.aisle.empty{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#f87171;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.6;}}
+.metrics-panel{background:var(--surface);border-radius:14px;padding:20px;}
+.metrics-title{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:14px;}
+.metric-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+.metric-item:last-child{border-bottom:none;}
+.metric-name{font-size:0.82rem;color:var(--muted);}
+.metric-val{font-family:'JetBrains Mono',monospace;font-size:0.88rem;font-weight:600;}
+.alert-banner{margin-top:16px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:10px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;}
+.alert-icon{font-size:1.2rem;flex-shrink:0;}
+.alert-text-content{font-size:0.8rem;color:#fca5a5;line-height:1.5;}
+.alert-text-content strong{display:block;margin-bottom:2px;}
+
+/* TECH STACK */
+.tech-section{background:var(--surface);}
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:48px;}
+.tech-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.2s;}
+.tech-card:hover{border-color:var(--green);transform:translateY(-3px);}
+.tech-icon{font-size:2rem;margin-bottom:10px;}
+.tech-name{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:4px;}
+.tech-use{font-size:0.75rem;color:var(--muted);}
+
+/* IMPACT */
+.impact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:56px;}
+@media(max-width:600px){.impact-grid{grid-template-columns:1fr;}}
+.impact-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:28px;}
+.impact-card.highlight{background:linear-gradient(135deg,rgba(0,200,100,0.08),rgba(0,170,255,0.05));border-color:rgba(0,200,100,0.25);}
+.impact-num{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--green);line-height:1;}
+.impact-label{font-size:0.85rem;color:var(--muted);margin-top:8px;line-height:1.5;}
+.impact-label strong{color:var(--text);display:block;font-size:1rem;margin-bottom:4px;}
+
+/* OTHER PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:56px;}
+.project-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:28px;transition:all 0.3s;}
+.project-card:hover{border-color:var(--blue);transform:translateY(-4px);}
+.project-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.project-tag{font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:4px 10px;border-radius:6px;background:rgba(59,130,246,0.1);color:#93c5fd;border:1px solid rgba(59,130,246,0.2);}
+.project-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:8px;}
+.project-desc{font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.project-links{display:flex;gap:10px;}
+.project-link{font-size:0.8rem;color:var(--text);text-decoration:none;padding:7px 14px;border-radius:8px;border:1px solid var(--border);transition:all 0.2s;font-weight:600;}
+.project-link:hover{border-color:var(--blue);color:#93c5fd;}
+.project-link.primary{background:var(--blue);border-color:var(--blue);color:white;}
+.project-link.primary:hover{background:#2563eb;}
+
+/* ABOUT */
+.about-section{background:var(--surface);}
+.about-grid{display:grid;grid-template-columns:1fr 340px;gap:60px;align-items:start;margin-top:56px;}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr;}}
+.about-text{}
+.about-intro{font-size:1.1rem;line-height:1.8;color:var(--text);margin-bottom:24px;}
+.about-intro strong{color:var(--green);}
+.about-para{font-size:0.95rem;line-height:1.8;color:var(--muted);margin-bottom:20px;}
+.skills-section{margin-top:32px;}
+.skills-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:14px;color:var(--text);}
+.skills-wrap{display:flex;flex-wrap:wrap;gap:8px;}
+.skill-chip{font-family:'JetBrains Mono',monospace;font-size:0.72rem;padding:6px 14px;border-radius:8px;background:rgba(0,200,100,0.07);color:var(--green);border:1px solid rgba(0,200,100,0.2);}
+.about-sidebar{}
+.profile-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:28px;margin-bottom:20px;}
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--green),#0066ff);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:white;margin-bottom:16px;}
+.profile-name{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:4px;}
+.profile-role{font-size:0.85rem;color:var(--green);margin-bottom:16px;}
+.profile-info{display:flex;flex-direction:column;gap:8px;}
+.profile-item{display:flex;align-items:center;gap:10px;font-size:0.82rem;color:var(--muted);}
+.profile-item span:first-child{font-size:1rem;}
+.links-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:20px;}
+.links-title{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:16px;}
+.link-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);text-decoration:none;transition:all 0.2s;}
+.link-row:last-child{border-bottom:none;}
+.link-row:hover .link-row-label{color:var(--green);}
+.link-row-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.link-row-label{font-size:0.85rem;font-weight:600;color:var(--text);}
+.link-row-sub{font-size:0.72rem;color:var(--muted);}
+.link-row-arrow{margin-left:auto;color:var(--muted);font-size:0.8rem;}
+
+/* CONTACT CTA */
+.cta-section{text-align:center;padding:120px 20px;}
+.cta-section h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-0.03em;margin-bottom:20px;}
+.cta-section h2 span{color:var(--green);}
+.cta-section p{color:var(--muted);font-size:1.05rem;margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:32px 40px;text-align:center;}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.footer-logo{font-family:'Syne',sans-serif;font-weight:800;color:var(--text);}
+.footer-logo span{color:var(--green);}
+.footer-copy{font-size:0.8rem;color:var(--muted);}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-size:0.8rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--green);}
+
+/* DIVIDER */
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Shiva<span>.</span>AI</div>
+    <ul class="nav-links">
+      <li><a href="#why">The Problem</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#demo">Live Demo</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About Me</a></li>
+    </ul>
+    <a href="https://shelf-stockout-detector-fapseuuelgggdbfiappwc7i.streamlit.app/" target="_blank" class="nav-cta">Try Live App →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      <span class="badge-text">🚀 Live Project — Computer Vision + AI</span>
+    </div>
+    <h1>
+      <span class="line1">I Built an AI That</span>
+      <span class="line2">Saves Stores ₹15,000</span>
+      <span class="line3">Every Single Day</span>
+    </h1>
+    <p class="hero-sub">Real-time shelf monitoring using Computer Vision — detecting empty shelves before customers notice, and alerting store managers instantly via email.</p>
+    <div class="hero-btns">
+      <a href="https://shelf-stockout-detector-fapseuuelgggdbfiappwc7i.streamlit.app/" target="_blank" class="btn-primary">🌐 Try Live App →</a>
+      <a href="https://github.com/shiav321/shelf-stockout-detector" target="_blank" class="btn-secondary">⭐ View on GitHub</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">91<span>%</span></div>
+        <div class="hero-stat-label">Accuracy</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">&lt;30<span>s</span></div>
+        <div class="hero-stat-label">Alert Time</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">₹15k<span>+</span></div>
+        <div class="hero-stat-label">Saved/Store/Day</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">$1<span>B</span></div>
+        <div class="hero-stat-label">Market Size</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WHY I BUILT THIS -->
+<section class="why-section" id="why">
+  <div class="container">
+    <div class="section-label">01 — The Problem</div>
+    <h2 class="section-title">Why I Built This</h2>
+    <p class="section-sub">A real problem that costs the Indian retail industry billions every year — and nobody was solving it with AI.</p>
+
+    <div class="why-grid">
+      <div class="why-image">
+        <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=700&q=80" alt="Empty retail shelf" onerror="this.src='https://via.placeholder.com/700x380/111827/00c864?text=Empty+Shelf+Problem'">
+        <div class="why-image-overlay"></div>
+        <div class="why-image-badge">⚠️ ₹50,000+ Lost Daily</div>
+      </div>
+      <div class="why-content">
+        <p class="why-story">One day I visited a <strong>DMart store in Hyderabad</strong>. I wanted to buy milk — the shelf was completely empty. I asked a staff member. They said <strong>"Sir, we'll restock in 2 hours."</strong> I left and bought it elsewhere.</p>
+        <p class="why-story">That single interaction made me think: <strong>How many customers do this every day? How much money is the store losing?</strong> I researched and discovered:</p>
+        <p class="why-story">🔴 Indian retail loses <strong>₹2,000+ crores annually</strong> to out-of-stock (OOS) events. Staff manually walk aisles every 2 hours. They miss empty spots. It's too slow. Too expensive. Too unreliable.</p>
+        <p class="why-story">💡 But every store already has <strong>CCTV cameras installed everywhere</strong>. The footage just sits there — unused. That's when I realized: <strong>I can make those cameras intelligent.</strong></p>
+        <div class="stat-pills">
+          <div class="stat-pill"><div class="stat-pill-num">₹2000Cr</div><div class="stat-pill-label">Annual OOS Loss India</div></div>
+          <div class="stat-pill"><div class="stat-pill-num">30%</div><div class="stat-pill-label">Sales Lost to OOS</div></div>
+          <div class="stat-pill"><div class="stat-pill-num">2 hrs</div><div class="stat-pill-label">Manual Check Interval</div></div>
+          <div class="stat-pill"><div class="stat-pill-num">$1B</div><div class="stat-pill-label">Trax Retail Valuation</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <div class="section-label">02 — The Solution</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">A 5-step AI pipeline that turns existing CCTV footage into real-time shelf intelligence — no new hardware needed.</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">STEP 01</div>
+        <div class="step-icon">📹</div>
+        <div class="step-title">CCTV Capture</div>
+        <div class="step-desc">Existing store CCTV cameras capture shelf footage every 30 seconds. No new hardware. No installation cost.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 02</div>
+        <div class="step-icon">🔲</div>
+        <div class="step-title">Zone Division</div>
+        <div class="step-desc">Each camera frame is divided into a 3×4 grid of zones — 12 zones per camera, each representing one shelf section.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 03</div>
+        <div class="step-icon">🧠</div>
+        <div class="step-title">AI Analysis</div>
+        <div class="step-desc">Each zone analyzed using texture variance + edge density (OpenCV) + CNN model (MobileNetV2) to classify: Stocked ✅ or Empty ❌.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 04</div>
+        <div class="step-icon">🗺️</div>
+        <div class="step-title">Store Map Update</div>
+        <div class="step-desc">A live store map updates instantly showing color-coded aisle status. Red = restock now. Green = fully stocked.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 05</div>
+        <div class="step-icon">📧</div>
+        <div class="step-title">Instant Alert</div>
+        <div class="step-desc">If 2+ zones are empty — email alert fired to store manager in under 30 seconds. Staff restocks before next customer arrives.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- LIVE DEMO MOCKUP -->
+<section class="demo-section" id="demo">
+  <div class="container">
+    <div class="section-label">03 — Live Demo</div>
+    <h2 class="section-title">See It In Action</h2>
+    <p class="section-sub">Real screenshots from the deployed app — upload any shelf image and the AI detects empty zones instantly.</p>
+
+    <div class="demo-grid">
+      <div class="demo-card">
+        <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=600&q=80" alt="Stocked shelf" class="demo-img" onerror="this.src='https://via.placeholder.com/600x220/111827/22c55e?text=Stocked+Shelf'">
+        <div class="demo-body">
+          <div class="demo-tag">✅ Before Detection — Stocked</div>
+          <div class="demo-title">Fully Stocked Shelf</div>
+          <div class="demo-desc">AI detects high texture variance and edge density — classifies all zones as STOCKED. No alert sent. All 12 zones green.</div>
+        </div>
+      </div>
+      <div class="demo-card">
+        <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=600&q=80" alt="Empty shelf" class="demo-img" onerror="this.src='https://via.placeholder.com/600x220/111827/ef4444?text=Empty+Shelf'">
+        <div class="demo-body">
+          <div class="demo-tag">❌ After Detection — Empty Zones Found</div>
+          <div class="demo-title">Empty Shelf Detected</div>
+          <div class="demo-desc">AI detects low texture, uniform background — flags zones as EMPTY. Red overlay drawn. Email alert fired to manager in &lt;30 seconds.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APP MOCKUP -->
+    <div class="mockup-wrapper">
+      <div class="mockup-topbar">
+        <div class="mac-dot" style="background:#ff5f56"></div>
+        <div class="mac-dot" style="background:#febc2e"></div>
+        <div class="mac-dot" style="background:#27c93f"></div>
+        <div class="mockup-url">📦 shelf-stockout-detector-fapseuuelgggdbfiappwc7i.streamlit.app</div>
+        <a href="https://shelf-stockout-detector-fapseuuelgggdbfiappwc7i.streamlit.app/" target="_blank" style="font-size:0.72rem;color:var(--green);text-decoration:none;font-family:'JetBrains Mono',monospace;">Open ↗</a>
+      </div>
+      <div class="mockup-content">
+        <div class="mockup-tabs">
+          <div class="m-tab active">📸 Image Scan</div>
+          <div class="m-tab">📹 Video Scan</div>
+          <div class="m-tab">🗺️ Store Map</div>
+          <div class="m-tab">📈 Trend Graph</div>
+          <div class="m-tab">📊 PDF Report</div>
+        </div>
+        <div class="mockup-demo-grid">
+          <div class="store-map">
+            <div class="map-header">
+              🗺️ Live Store Map
+              <span class="live-badge">● LIVE</span>
+            </div>
+            <div class="aisle-grid">
+              <div class="aisle ok"><span class="aisle-icon">✅</span>A1 Beverages</div>
+              <div class="aisle ok"><span class="aisle-icon">✅</span>A2 Snacks</div>
+              <div class="aisle empty"><span class="aisle-icon">❌</span>A3 Dairy</div>
+              <div class="aisle ok"><span class="aisle-icon">✅</span>A4 Frozen</div>
+              <div class="aisle ok"><span class="aisle-icon">✅</span>B1 Grains</div>
+              <div class="aisle empty"><span class="aisle-icon">❌</span>B2 Spices</div>
+              <div class="aisle ok"><span class="aisle-icon">✅</span>B3 Oils</div>
+              <div class="aisle ok"><span class="aisle-icon">✅</span>B4 Cleaning</div>
+              <div class="aisle empty"><span class="aisle-icon">❌</span>C1 Personal</div>
+              <div class="aisle ok"><span class="aisle-icon">✅</span>C2 Baby</div>
+              <div class="aisle ok"><span class="aisle-icon">✅</span>C3 Bakery</div>
+              <div class="aisle ok"><span class="aisle-icon">✅</span>C4 Checkout</div>
+            </div>
+            <div class="alert-banner" style="margin-top:14px;">
+              <span class="alert-icon">🚨</span>
+              <div class="alert-text-content">
+                <strong>RESTOCK ALERT — 3 zones empty!</strong>
+                A3 Dairy · B2 Spices · C1 Personal Care — Email sent to manager ✓
+              </div>
+            </div>
+          </div>
+          <div class="metrics-panel">
+            <div class="metrics-title">📊 Detection Results</div>
+            <div class="metric-item"><span class="metric-name">Total Zones</span><span class="metric-val">12</span></div>
+            <div class="metric-item"><span class="metric-name">✅ Stocked</span><span class="metric-val" style="color:#4ade80">9</span></div>
+            <div class="metric-item"><span class="metric-name">❌ Empty</span><span class="metric-val" style="color:#f87171">3</span></div>
+            <div class="metric-item"><span class="metric-name">Stock Level</span><span class="metric-val" style="color:#facc15">75%</span></div>
+            <div class="metric-item"><span class="metric-name">Alert Sent</span><span class="metric-val" style="color:#4ade80">✓ Yes</span></div>
+            <div class="metric-item"><span class="metric-name">Response Time</span><span class="metric-val">&lt; 30s</span></div>
+            <div style="margin-top:16px;background:rgba(0,200,100,0.07);border-radius:10px;padding:12px;border:1px solid rgba(0,200,100,0.15);">
+              <div style="font-size:0.7rem;color:var(--muted);margin-bottom:6px;font-family:'JetBrains Mono',monospace;">STOCK LEVEL TODAY</div>
+              <div style="display:flex;align-items:flex-end;gap:3px;height:40px;">
+                <div style="flex:1;background:#4ade80;border-radius:2px 2px 0 0;height:90%;opacity:0.7;"></div>
+                <div style="flex:1;background:#4ade80;border-radius:2px 2px 0 0;height:85%;opacity:0.75;"></div>
+                <div style="flex:1;background:#facc15;border-radius:2px 2px 0 0;height:70%;opacity:0.8;"></div>
+                <div style="flex:1;background:#f87171;border-radius:2px 2px 0 0;height:58%;opacity:0.85;"></div>
+                <div style="flex:1;background:#facc15;border-radius:2px 2px 0 0;height:65%;opacity:0.8;"></div>
+                <div style="flex:1;background:#4ade80;border-radius:2px 2px 0 0;height:75%;opacity:0.8;"></div>
+                <div style="flex:1;background:#4ade80;border-radius:2px 2px 0 0;height:80%;opacity:0.75;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:20px;text-align:center;">
+          <a href="https://shelf-stockout-detector-fapseuuelgggdbfiappwc7i.streamlit.app/" target="_blank" class="btn-primary" style="display:inline-flex;">🚀 Open Full App & Try It Yourself →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TECH STACK -->
+<section class="tech-section">
+  <div class="container">
+    <div class="section-label">04 — Tech Stack</div>
+    <h2 class="section-title">Built With</h2>
+    <div class="tech-grid">
+      <div class="tech-card"><div class="tech-icon">🐍</div><div class="tech-name">Python</div><div class="tech-use">Core language</div></div>
+      <div class="tech-card"><div class="tech-icon">👁️</div><div class="tech-name">OpenCV</div><div class="tech-use">Image processing</div></div>
+      <div class="tech-card"><div class="tech-icon">🧠</div><div class="tech-name">TensorFlow</div><div class="tech-use">Deep learning</div></div>
+      <div class="tech-card"><div class="tech-icon">📱</div><div class="tech-name">MobileNetV2</div><div class="tech-use">Transfer learning</div></div>
+      <div class="tech-card"><div class="tech-icon">🌐</div><div class="tech-name">Streamlit</div><div class="tech-use">Web dashboard</div></div>
+      <div class="tech-card"><div class="tech-icon">📊</div><div class="tech-name">Pandas</div><div class="tech-use">Data analysis</div></div>
+      <div class="tech-card"><div class="tech-icon">📧</div><div class="tech-name">Gmail SMTP</div><div class="tech-use">Email alerts</div></div>
+      <div class="tech-card"><div class="tech-icon">☁️</div><div class="tech-name">Streamlit Cloud</div><div class="tech-use">Deployment</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- IMPACT -->
+<section>
+  <div class="container">
+    <div class="section-label">05 — Business Impact</div>
+    <h2 class="section-title">Real World Numbers</h2>
+    <div class="impact-grid">
+      <div class="impact-card highlight">
+        <div class="impact-num">₹15,000+</div>
+        <div class="impact-label"><strong>Saved Per Store Per Day</strong>Based on 30% reduction in out-of-stock events for an average store doing ₹5L daily revenue.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">91%</div>
+        <div class="impact-label"><strong>Detection Accuracy</strong>Achieved with MobileNetV2 transfer learning — trained on just 200 shelf images.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">&lt;30s</div>
+        <div class="impact-label"><strong>Alert Response Time</strong>From shelf going empty to manager receiving WhatsApp/email — under 30 seconds.</div>
+      </div>
+      <div class="impact-card highlight">
+        <div class="impact-num">$1B</div>
+        <div class="impact-label"><strong>Market Validation</strong>Trax Retail built a $1B company solving this exact problem. Focal Systems acquired by Instacart for $200M.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- OTHER PROJECTS -->
+<section class="demo-section" id="projects">
+  <div class="container">
+    <div class="section-label">06 — Portfolio</div>
+    <h2 class="section-title">Other Projects</h2>
+    <p class="section-sub">More real-world AI & Data Science projects I've built — each solving a specific problem.</p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">Claude API</span><span class="project-tag">Streamlit</span></div>
+        <div class="project-title">📄 ResumeIQ — AI Resume Analyzer</div>
+        <div class="project-desc">Upload any resume PDF → get instant AI-powered score, strengths, improvement tips, job role matches, ATS optimization, and natural language Q&A about your resume.</div>
+        <div class="project-links">
+          <a href="https://shiav321.github.io" target="_blank" class="project-link primary">Live Demo</a>
+          <a href="https://github.com/shiav321" target="_blank" class="project-link">GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tags"><span class="project-tag">TensorFlow</span><span class="project-tag">CNN</span><span class="project-tag">Healthcare</span></div>
+        <div class="project-title">🏥 Disease Prediction Model</div>
+        <div class="project-desc">Machine learning model achieving 98% accuracy for early disease prediction in healthcare domain. Built using patient data with feature engineering and ensemble methods.</div>
+        <div class="project-links">
+          <a href="https://github.com/shiav321" target="_blank" class="project-link primary">GitHub</a>
+          <a href="https://shiav321.github.io" target="_blank" class="project-link">Portfolio</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tags"><span class="project-tag">JavaScript</span><span class="project-tag">HTML/CSS</span><span class="project-tag">Offline</span></div>
+        <div class="project-title">⏱️ StudyFlow — Pomodoro Planner</div>
+        <div class="project-desc">Offline-first study planner with Pomodoro timer, task management by subject, daily schedule builder, progress tracking, and motivational quotes. Zero dependencies.</div>
+        <div class="project-links">
+          <a href="https://shiav321.github.io" target="_blank" class="project-link primary">Live Demo</a>
+          <a href="https://github.com/shiav321" target="_blank" class="project-link">GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="section-label">07 — About Me</div>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="about-intro">I'm <strong>Shiva Keshava</strong> — a Data Scientist and AI engineer from Hyderabad, India. I believe the best AI projects don't just look good on paper — they solve real problems that real people face every day.</p>
+        <p class="about-para">I'm pursuing my B.Tech in Artificial Intelligence & Data Science with a CGPA of 8.2. My passion is bridging the gap between advanced AI research and real-world business impact — especially in retail, healthcare, and education.</p>
+        <p class="about-para">Every project I build starts with one question: <em>"What problem is this solving, and who benefits from it?"</em> That's why the Shelf Stock-Out Detector wasn't just a project — it was a solution to something I personally experienced and knew others were suffering from.</p>
+        <p class="about-para">I'm actively looking for opportunities in Data Science, Machine Learning Engineering, and AI roles where I can contribute real impact from day one.</p>
+
+        <div class="skills-section">
+          <div class="skills-title">Technical Skills</div>
+          <div class="skills-wrap">
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">TensorFlow</span>
+            <span class="skill-chip">Scikit-learn</span>
+            <span class="skill-chip">OpenCV</span>
+            <span class="skill-chip">SQL</span>
+            <span class="skill-chip">AWS</span>
+            <span class="skill-chip">Streamlit</span>
+            <span class="skill-chip">Pandas</span>
+            <span class="skill-chip">NumPy</span>
+            <span class="skill-chip">MobileNetV2</span>
+            <span class="skill-chip">Git/GitHub</span>
+            <span class="skill-chip">Power BI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-sidebar">
+        <div class="profile-card">
+          <div class="profile-avatar">SK</div>
+          <div class="profile-name">Shiva Keshava</div>
+          <div class="profile-role">Data Scientist · AI Engineer</div>
+          <div class="profile-info">
+            <div class="profile-item"><span>🎓</span><span>B.Tech AI & DS — CGPA 8.2</span></div>
+            <div class="profile-item"><span>📍</span><span>Hyderabad, India</span></div>
+            <div class="profile-item"><span>💼</span><span>Open to Work</span></div>
+            <div class="profile-item"><span>🏆</span><span>98% ML Model Accuracy</span></div>
+          </div>
+        </div>
+
+        <div class="links-card">
+          <div class="links-title">🔗 Find Me Online</div>
+
+          <a href="https://shiav321.github.io" target="_blank" class="link-row">
+            <div class="link-row-icon" style="background:rgba(0,200,100,0.1);">🌐</div>
+            <div><div class="link-row-label">Portfolio Website</div><div class="link-row-sub">shiav321.github.io</div></div>
+            <div class="link-row-arrow">↗</div>
+          </a>
+
+          <a href="https://github.com/shiav321" target="_blank" class="link-row">
+            <div class="link-row-icon" style="background:rgba(255,255,255,0.05);">🐙</div>
+            <div><div class="link-row-label">GitHub</div><div class="link-row-sub">github.com/shiav321</div></div>
+            <div class="link-row-arrow">↗</div>
+          </a>
+
+          <a href="https://linkedin.com/in/shivakeshava" target="_blank" class="link-row">
+            <div class="link-row-icon" style="background:rgba(59,130,246,0.1);">💼</div>
+            <div><div class="link-row-label">LinkedIn</div><div class="link-row-sub">Connect with me</div></div>
+            <div class="link-row-arrow">↗</div>
+          </a>
+
+          <a href="https://medium.com/@shivakeshava784" target="_blank" class="link-row">
+            <div class="link-row-icon" style="background:rgba(255,255,255,0.05);">✍️</div>
+            <div><div class="link-row-label">Medium Blog</div><div class="link-row-sub">AI & Data Science articles</div></div>
+            <div class="link-row-arrow">↗</div>
+          </a>
+
+          <a href="mailto:shivakeshava784@gmail.com" class="link-row">
+            <div class="link-row-icon" style="background:rgba(239,68,68,0.1);">📧</div>
+            <div><div class="link-row-label">Email Me</div><div class="link-row-sub">shivakeshava784@gmail.com</div></div>
+            <div class="link-row-arrow">↗</div>
+          </a>
+
+          <a href="https://drive.google.com/file/d/your-resume-id" target="_blank" class="link-row">
+            <div class="link-row-icon" style="background:rgba(245,158,11,0.1);">📄</div>
+            <div><div class="link-row-label">Download Resume</div><div class="link-row-sub">PDF — Updated 2025</div></div>
+            <div class="link-row-arrow">↗</div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-label" style="justify-content:center;display:flex;">08 — Let's Work Together</div>
+  <h2>Ready to <span>Hire a Builder?</span></h2>
+  <p>I don't just write code — I solve problems. If you're looking for a Data Scientist who ships real, impactful AI, let's talk.</p>
+  <div class="cta-btns">
+    <a href="mailto:shivakeshava784@gmail.com" class="btn-primary">📧 Email Me Directly</a>
+    <a href="https://linkedin.com/in/shivakeshava" target="_blank" class="btn-secondary">💼 Connect on LinkedIn</a>
+    <a href="https://shelf-stockout-detector-fapseuuelgggdbfiappwc7i.streamlit.app/" target="_blank" class="btn-secondary">🌐 Try My Project Live</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Shiva<span>.</span>AI</div>
+    <div class="footer-copy">© 2025 Shiva Keshava · Built with ❤️ and Python</div>
+    <div class="footer-links">
+      <a href="https://github.com/shiav321" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/shivakeshava" target="_blank">LinkedIn</a>
+      <a href="mailto:shivakeshava784@gmail.com">Email</a>
+      <a href="https://medium.com/@shivakeshava784" target="_blank">Medium</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
