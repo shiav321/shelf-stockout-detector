@@ -3,3 +3,4 @@ numpy
 streamlit
 pandas
 Pillow
+fpdf2
